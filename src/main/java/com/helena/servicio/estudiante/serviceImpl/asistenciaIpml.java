@@ -32,4 +32,9 @@ public class asistenciaIpml implements asistenciaService{
 		asire.delete(asis);
 	}
 
+	@Override
+	public asistencia save(asistencia asis) {
+		return asire.save(asis);
+	}
+
 }

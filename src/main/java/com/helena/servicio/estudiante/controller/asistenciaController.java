@@ -11,11 +11,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.helena.servicio.estudiante.entity.asistencia;
 import com.helena.servicio.estudiante.service.asistenciaService;
-
 
 
 @RestController
@@ -36,6 +37,17 @@ public class asistenciaController {
 	public asistencia detalle(@PathVariable Long id) { 
 		return asiser.findById(id);
 	}
+	
+	@PostMapping("/crear-asistencia")
+    public ResponseEntity<?> save(@RequestBody asistencia asis, HttpServletRequest request) {
+        HashMap<String, Object> result = new HashMap<>();
+        asistencia data = asiser.save(asis);
+
+        result.put("success", true);
+        result.put("message", "Registro creado correctamente.");
+        result.put("data", data);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    } 
 
 	@DeleteMapping("/eliminar-asistencia/{ID_REG_ASISTENCIA}")
     public ResponseEntity<?> delete(@PathVariable(value = "ID_REG_ASISTENCIA") Long ID_REG_ASISTENCIA, HttpServletRequest request) {
