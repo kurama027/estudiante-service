@@ -18,7 +18,7 @@ import com.helena.servicio.estudiante.entity.estudiante;
 import com.helena.servicio.estudiante.service.estudianteService;
 
 
-@CrossOrigin(origins = { "http://localhost:4200" })
+@CrossOrigin(origins = { "https://quintahelena.azurewebsites.net" })
 @RestController
 public class estudiantecontroller {
 	@Autowired
