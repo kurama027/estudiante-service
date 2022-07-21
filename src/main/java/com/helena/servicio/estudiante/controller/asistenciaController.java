@@ -12,11 +12,13 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.helena.servicio.estudiante.entity.asistencia;
 import com.helena.servicio.estudiante.service.asistenciaService;
+import com.helena.servicio.proyecto.entity.Pregunta;
 
 
 @RestController
@@ -48,6 +50,26 @@ public class asistenciaController {
         result.put("data", data);
         return new ResponseEntity<>(result, HttpStatus.OK);
     } 
+	
+	@PutMapping("/actualiza-asistencia/{id}")
+    public ResponseEntity<?> update(@RequestBody asistencia asis, HttpServletRequest request) {
+        HashMap<String, Object> result = new HashMap<>();
+        asistencia data = asiser.findById(asis.getID_REG_ASISTENCIA());
+        if (data == null) {
+            result.put("success", false);
+            result.put("message", "No existe Pregunta con Id: " + asis.getID_REG_ASISTENCIA());
+            return new ResponseEntity<>(result, HttpStatus.NOT_FOUND);
+        }
+        try {
+            asiser.save(asis);
+            result.put("success", true);
+            result.put("message", "Se ha actualizado los datos de la Pregunta.");
+            result.put("data",asis);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        } catch (Exception ex) {
+            return new ResponseEntity<>(new Exception(ex.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }  
 
 	@DeleteMapping("/eliminar-asistencia/{ID_REG_ASISTENCIA}")
     public ResponseEntity<?> delete(@PathVariable(value = "ID_REG_ASISTENCIA") Long ID_REG_ASISTENCIA, HttpServletRequest request) {
