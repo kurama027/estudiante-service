@@ -15,12 +15,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.helena.servicio.estudiante.entity.asistencia;
 import com.helena.servicio.estudiante.service.asistenciaService;
 import com.helena.servicio.proyecto.entity.Pregunta;
 
-
+@CrossOrigin(origins = { "https://quintahelena.azurewebsites.net" })
 @RestController
 public class asistenciaController {
 	@Autowired
